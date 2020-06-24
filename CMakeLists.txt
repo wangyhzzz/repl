@@ -14,5 +14,13 @@ set(SOURCE_FILES
         )
 add_executable(repl ${SOURCE_FILES})
 add_library(UnityRepl SHARED ${SOURCE_FILES})
-#target_compile_definitions(hook_test PUBLIC TEST)
-
+add_custom_command(TARGET UnityRepl
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/libUnityRepl.dll 'E:/XMASTER/xMasterClient5.6/Assets/Plugins'
+        )
+#set_target_properties(
+#        UnityRepl
+#        PROPERTIES
+#        CMAKE_RUNTIME_OUTPUT_DIRECTORY 'E:/XMASTER/xMasterClient5.6/Assets/Plugins/a/'
+#)
+#
