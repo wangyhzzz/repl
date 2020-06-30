@@ -5,14 +5,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -DRL_LIBRARY_VERSION=8.0 ")
 link_libraries(readline history termcap)
 
 include_directories("${PROJECT_SOURCE_DIR}/")
-include_directories("${PROJECT_SOURCE_DIR}/prebuilt_x64/include")
 
-link_directories("${PROJECT_SOURCE_DIR}/prebuilt_x64/lib")
+link_directories("${PROJECT_SOURCE_DIR}/prebuilt/x64")
 
 include(CheckIncludeFile)
-set(SOURCE_FILES
-        src/repl.cpp
-        )
+set(SOURCE_FILES src/repl.cpp)
 add_executable(repl ${SOURCE_FILES})
 add_library(UnityRepl SHARED ${SOURCE_FILES})
 add_custom_command(TARGET UnityRepl

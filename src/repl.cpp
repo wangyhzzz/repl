@@ -1,8 +1,8 @@
 #include <iostream>
 #include <windows.h>
 #include "repl.h"
-#include "readline.h"
-#include "history.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <thread>
 #include <list>
 
@@ -27,6 +27,7 @@ int init() {
     }
     inited = true;
     auto ret = AllocConsole();
+    system("chcp 65001");
     freopen("CONIN$", "r", stdin);
     freopen("CONOUT$", "w", stdout);
 //    freopen("CONOUT$", "w", stderr);
@@ -38,15 +39,9 @@ int init() {
 
 void repl() {
     char *temp;
+    using_history();
+    read_history(nullptr);
     while ((temp = readline(nullptr))) {
-        /* Test for EOF. */
-
-        /* If there is anything on the line, print it and remember it. */
-        if (*temp) {
-//            fprintf(stdout, "%s\r\n", temp);
-            cmdlist.push_back(temp);
-            add_history(temp);
-        }
 
         /* Check for `command' that we handle. */
         if (strcmp(temp, "quit") == 0)exit(0);
@@ -60,6 +55,10 @@ void repl() {
                 for (i = 0; list[i]; i++)
                     fprintf(stdout, "%d: %s\r\n", i, list[i]->line);
             }
+        } else if (*temp) {
+            cmdlist.push_back(temp);
+            add_history(temp);
+            append_history(1, nullptr);
         }
         free(temp);
     }
