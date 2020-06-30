@@ -5,8 +5,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -DRL_LIBRARY_VERSION=8.0 ")
 link_libraries(readline history termcap)
 
 include_directories("${PROJECT_SOURCE_DIR}/")
+include_directories("${PROJECT_SOURCE_DIR}/prebuilt_x64/include")
 
-link_directories("${PROJECT_SOURCE_DIR}/readline")
+link_directories("${PROJECT_SOURCE_DIR}/prebuilt_x64/lib")
 
 include(CheckIncludeFile)
 set(SOURCE_FILES

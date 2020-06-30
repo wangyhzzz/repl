@@ -1,8 +1,8 @@
 #include <iostream>
 #include <windows.h>
 #include "repl.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "readline.h"
+#include "history.h"
 #include <thread>
 #include <list>
 
@@ -21,6 +21,11 @@ int main() {
 }
 
 int init() {
+    static bool inited = false;
+    if (inited) {
+        return 0;
+    }
+    inited = true;
     auto ret = AllocConsole();
     freopen("CONIN$", "r", stdin);
     freopen("CONOUT$", "w", stdout);
@@ -56,7 +61,6 @@ void repl() {
                     fprintf(stdout, "%d: %s\r\n", i, list[i]->line);
             }
         }
-        string ret(temp);
         free(temp);
     }
     exit(1);
