@@ -41,6 +41,7 @@ void repl() {
     char *temp;
     using_history();
     read_history(nullptr);
+    write_history(nullptr);
     while ((temp = readline(nullptr))) {
 
         /* Check for `command' that we handle. */
